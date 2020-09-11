@@ -10,11 +10,9 @@ QT += printsupport
 
 TARGET = pxv
 HEADERS = appw.h arrows.h cselect.h curve.h move.h plot.h pxplot.h scale.h \
-          xye.h close.h \
-    fileformat.h
+          xye.h close.h fileformat.h
 SOURCES = main.cpp appw.cpp arrows.cpp cselect.cpp curve.cpp move.cpp \
-          plot.cpp pxplot.cpp scale.cpp xye.cpp close.cpp \
-    fileformat.cpp
+          plot.cpp pxplot.cpp scale.cpp xye.cpp close.cpp fileformat.cpp
 
 # TRANSLATIONS = pxv_hu.ts
 

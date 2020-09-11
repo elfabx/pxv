@@ -1,39 +1,52 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 #include "xye.h"
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+#include <QStringList>
+#include <QApplication>
+#include <QMessageBox>
 
-int read_xye(char* fn, double* x, double* y, int skip)
+int readXYE(const QString &fn, QChar sep, QVector<double> &x,
+            QVector<double> &y, int skip)
 {
-    char line[256];
+    int n = 0; // number of points read
 
-    int n = -1;
-    std::ifstream inp(fn);
-    std::string fns(fn);
+    QFile xyfile(fn);
+    if (!xyfile.open(QFile::ReadOnly|QFile::Text))
+    {
+        return n;
+    }
 
-    std::cout << fn << std::endl;
-    std::cout << skip << std::endl;
+    QTextStream inp(&xyfile);
+    QString line;
+
     if (skip > 0)
     {
         for (int i=0; i < skip; ++i)
         {
-            inp.getline(line,255);
+            line = inp.readLine();
         }
     }
-    while (inp.good())
+
+    while (inp.readLineInto(&line))
     {
-        inp.getline(line,255);
-        double a,b;
-        std::istringstream parse(line);
-        parse >> a >> b;
-        ++n;
-        if (n==50000) return(n);
-        x[n] = a;
-        y[n] = b;
+        bool a, b;
+        line = line.simplified(); // simplify whitespace for parsing
+        QStringList fields = line.split(sep);
+        if (fields.size()>1)
+        {
+            x.append(fields.at(0).simplified().toDouble(&a));
+            y.append(fields.at(1).simplified().toDouble(&b));
+            if (!(a && b)) return(n); // unsuccessful conversion
+            ++n;
+        } else
+        {
+            // accept single value at start to allow optional lambda in xye,
+            // finish reading otherwise (no longer x y format)
+            if (n > 0) return(n);
+        }
     }
 
     return(n);
 
 }
-

@@ -6,6 +6,7 @@
 #include "curve.h"
 #include "fileformat.h"
 #include "xye.h"
+#include <QMessageBox>
 
 static Qt::GlobalColor colorlist[10] = { Qt::red,
                                        Qt::green, Qt::blue, Qt::cyan,
@@ -52,39 +53,42 @@ bool PxPlot::setData(const QString& name, const QString & filter)
     crv1->attach(this);
     curves.append(crv1);
 
-    int ArraySize = 0;
-    double* dx;
-    double* dy;
+    int arraySize = 0;
 
-    dx = new double[50000];
-    dy = new double[50000];
+    QVector<double> dx;
+    QVector<double> dy;
 
-    QByteArray ba = name.toLocal8Bit();
+    dx.reserve(50000); // size hint: enough for most lab data
+    dy.reserve(50000);
 
     FileFormat* ff = new FileFormat();
     FileFormatIDX fid = ff->guess(name, filter);
     delete ff;
 
     if (fid==PXV_XY_FILE)
-        ArraySize = read_xye(ba.data(),dx,dy,0);
+        arraySize = readXYE(name,' ',dx,dy,0);
     else if (fid==PXV_ARL_FILE)
-         ArraySize = read_xye(ba.data(),dx,dy,38);
+         arraySize = readXYE(name,' ',dx,dy,38); // skip 38 lines of metadata
+    else if (fid==PXV_TSV_FILE)
+        arraySize = readXYE(name,' ',dx,dy,1); // possible header in first line
+    else if (fid==PXV_CSV_FILE)
+        arraySize = readXYE(name,',',dx,dy,1); // possible header in first line
 
-    if (ArraySize > 0)
+    if (arraySize > 0)
     {
-        crv1->setSamples(dx,dy,ArraySize); // makes a copy, unlike setRawSamples
+        // setSamples makes a copy, unlike setRawSamples
+        crv1->setSamples(dx.data(),dy.data(),arraySize);
     } else
     {
         removeCurve(crv1);
+        QMessageBox::warning(this,tr("File error"),
+                         tr("Reading data from the selected file failed.\n"));
     }
-
-    delete [] dx;
-    delete [] dy;
 
     setAutoReplot(svReplot);
     replot();
 
-    return(ArraySize > 0);
+    return(arraySize > 0);
 }
 
 QRectF PxPlot::boundingRect()

@@ -10,6 +10,11 @@ FileFormat::FileFormat()
     ids.append(PXV_XY_FILE);
     descr.append(tr("ARL text files (*.txt)"));
     ids.append(PXV_ARL_FILE);
+    descr.append(tr("Tab/space separated files (*.txt *.tsv)"));
+    ids.append(PXV_TSV_FILE);
+    descr.append(tr("CSV files (*.csv)"));
+    ids.append(PXV_CSV_FILE);
+
     // create filter string
     filter = descr.join(";;");
 }
@@ -26,6 +31,8 @@ FileFormatIDX FileFormat::guessFromName(const QString & fn)
     QString n(fn.toLower());
     if (n.endsWith(".xy") || n.endsWith(".xye")) return(PXV_XY_FILE);
     if (n.endsWith(".txt")) return(PXV_ARL_FILE);
+    if (n.endsWith(".tsv")) return(PXV_TSV_FILE);
+    if (n.endsWith(".csv")) return(PXV_CSV_FILE);
     return(ids[0]); // unrecognised, treated as first in constructor
 }
 

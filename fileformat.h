@@ -4,7 +4,10 @@
 
 
 // File formats as
-typedef enum {PXV_XY_FILE, PXV_ARL_FILE} FileFormatIDX;
+typedef enum { PXV_XY_FILE,
+               PXV_ARL_FILE,
+               PXV_TSV_FILE,
+               PXV_CSV_FILE } FileFormatIDX;
 
 class FileFormat : private QObject
 {
