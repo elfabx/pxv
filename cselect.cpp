@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <qwt.h>
+#include <qwt_text.h>
 #include "curve.h"
 #include "cselect.h"
 

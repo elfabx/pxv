@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QMessageBox>
 #include <qwt.h>
 #include <qwt_legend.h>
 #include <qwt_plot_layout.h>
@@ -6,7 +7,6 @@
 #include "curve.h"
 #include "fileformat.h"
 #include "xye.h"
-#include <QMessageBox>
 
 static Qt::GlobalColor colorlist[10] = { Qt::red,
                                        Qt::green, Qt::blue, Qt::cyan,

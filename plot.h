@@ -2,7 +2,7 @@
 #define PLOT_H
 
 #include <QGridLayout>
-#include <qwidget.h>
+#include <QWidget>
 #include <qwt_plot_zoomer.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_renderer.h>

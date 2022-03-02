@@ -34,7 +34,7 @@ Plot::Plot(QWidget *parent): QWidget(parent)
 //    zoomer->zoom(0);
 
     panner = new QwtPlotPanner(px->canvas());
-    panner->setMouseButton(Qt::MidButton);
+    panner->setMouseButton(Qt::MiddleButton);
 
 //    d_picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yLeft,
 //        QwtPicker::PointSelection | QwtPicker::DragSelection,

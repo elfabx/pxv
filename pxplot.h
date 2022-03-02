@@ -1,8 +1,9 @@
 #ifndef PXPLOT_H
 #define PXPLOT_H
 
-#include <qwidget.h>
+#include <QWidget>
 #include <QRectF>
+#include <QVariant>
 #include <qwt_plot.h>
 
 class Curve;

@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <QTextStream>
+#include <QApplication>
 #include "plot.h"
 #include "appw.h"
 #include "move.h"
@@ -21,8 +22,9 @@ AppWindow::AppWindow()
 //            SLOT(needsSave()));
 
     // set window size to 67% of desktop if enough to display all widgets
+    // done this to avoid tiny window on high res laptop screen
     QSize swin = this->size(); // current size (fits widgets)
-    QSize sdesk = QDesktopWidget().availableGeometry(this).size()*2/3;
+    QSize sdesk = qApp->primaryScreen()->availableSize()*2/3;
     if (swin.width() < sdesk.width()) swin.setWidth(sdesk.width());
     if (swin.height() < sdesk.height()) swin.setHeight(sdesk.height());
     this->resize(swin);
@@ -145,7 +147,7 @@ void AppWindow::addActions()
     connect(scaleAction,SIGNAL(triggered()),this,SLOT(scale()));
 
     zoomFitAction = new QAction(tr("Zoom to &Fit"),this);
-    zoomFitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Asterisk));
+    zoomFitAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Asterisk));
     zoomFitAction->setStatusTip(tr("Zoom to show all data"));
     zoomFitAction->setIcon(QIcon::fromTheme("zoom-fit-best"));
     connect(zoomFitAction,SIGNAL(triggered()),plot,SLOT(zoomToFit()));
