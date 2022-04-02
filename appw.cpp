@@ -98,7 +98,20 @@ void AppWindow::about()
 {
     QMessageBox dia;
     dia.setText(tr("PXV - Powder X-ray Viewer"));
-    dia.setInformativeText(tr("Copyright 2010-2020 Laszlo Fabian"));
+    dia.setInformativeText(tr("<html>Author: Laszlo Fabian, 2010-2022<br>"
+			    "<br>This program is free software: you can " 
+			    "redistribute it and/or modify it under the "
+			    "terms of the <a href="
+			    "https://www.gnu.org/licenses>" 
+			    "GNU General Public License</a> as "
+			    "published by the Free Software Foundation, "
+			    "either version 3 of the License, or (at your "
+			    "option) any later version.<br><br>"
+		            "This program relies on the <a "
+			    "href=https://qwt.sourceforge.io>Qwt</a> "
+			    "library."
+			    "</html>"
+			    ));
     dia.exec();
 }
 

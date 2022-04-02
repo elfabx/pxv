@@ -15,16 +15,6 @@ Plot::Plot(QWidget *parent): QWidget(parent)
 
     zoomer = new QwtPlotZoomer(QwtPlot::xBottom, QwtPlot::yLeft, px->canvas());
     zoomer->setRubberBand(QwtPicker::RectRubberBand);
-//    zoomer->setSelectionFlags(
-//                QwtPicker::DragSelection | QwtPicker::CornerToCorner);
-
-//      zoomer->setTrackerMode(QwtPicker::AlwaysOn);
-//    zoomer->setTrackerMode(QwtPicker::ActiveOnly);
-//    zoomer->setRubberBandPen(QColor(Qt::green));
-//    zoomer->setTrackerPen(QColor(Qt::white));
-
-    // RightButton: previous zoom
-    // Ctrl+RightButton: reset zoom
 
     zoomer->setMousePattern(QwtEventPattern::MouseSelect2,
                             Qt::RightButton, Qt::ControlModifier);
@@ -36,27 +26,14 @@ Plot::Plot(QWidget *parent): QWidget(parent)
     panner = new QwtPlotPanner(px->canvas());
     panner->setMouseButton(Qt::MiddleButton);
 
-//    d_picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yLeft,
-//        QwtPicker::PointSelection | QwtPicker::DragSelection,
-//        QwtPlotPicker::CrossRubberBand, QwtPicker::AlwaysOn,
-//        d_plot->canvas());
-//    d_picker->setRubberBandPen(QColor(Qt::green));
-//    d_picker->setRubberBand(QwtPicker::CrossRubberBand);
-//    d_picker->setTrackerPen(QColor(Qt::white));
-
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(px,0,0,1,-1);
-    label = new QLabel(tr("LF"));
+    label = new QLabel(tr("")); // place for future status/cursor line
     layout->addWidget(label,1,1);
 
     setLayout(layout);
 
 
-
-//    connect(d_picker, SIGNAL(moved(const QPoint &)),
-//            SLOT(moved(const QPoint &)));
-//    connect(d_picker, SIGNAL(selected(const QwtPolygon &)),
-//           SLOT(selected(const QwtPolygon &)));
 
 }
 

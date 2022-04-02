@@ -18,7 +18,9 @@ Clicking on the legend toggles the visibility of the corresponding pattern.
 You need Qt5 (>=5.12) or Qt6 and Qwt (>=6.1.4) installed and configured
 to compile the code.
 
-`qmake` (or `qmake-qt5` or `qmake-qt6`)
+`mkdir build && cd build`
+
+`qmake ..` (or "`qmake-qt5 ..`" or "`qmake-qt6 ..`")
 
 `make`
 
@@ -32,3 +34,4 @@ fixed by replacing the
 line in the pxv.pro file by
 
 `include ( /full/path/to/qwt.pri )` 
+
